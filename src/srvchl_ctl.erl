@@ -6,14 +6,14 @@ start([Node]) ->
  		% error_logger:logfile({open, "/var/srvchl/logs/error_log"}),
 		inets:start(),
 		{ok, Pid} = inets:start(httpd, [{port, 8080}, {server_name,"httpd_chall"}, {server_root,"/tmp"}, 
-							{document_root,"/tmp/htdocs"}, {bind_address, "10.10.11.66"}, {modules, [gen_module]}]),
+							{document_root,"/tmp/htdocs"}, {bind_address, "10.0.0.232"}, {modules, [gen_module]}]),
 		io:format("Starting INETS server with pid:~p~n", [Pid]),
 		application:start(srvchl).
 
 debug([Node])->
 		inets:start(),
 		{ok, Pid} = inets:start(httpd, [{port, 8080}, {server_name,"httpd_chall"}, {server_root,"/tmp"}, 
-							{document_root,"/tmp/htdocs"}, {bind_address, "10.10.11.66"}, {modules, [gen_module]}]),
+							{document_root,"/tmp/htdocs"}, {bind_address, "10.0.0.232"}, {modules, [gen_module]}]),
 		io:format("Starting INETS server with pid:~p~n", [Pid]),
 		application:start(srvchl).
 

@@ -1,3 +1,9 @@
+Minimalist and self-contained service that implements the challenge.
+
+Requirements:
+-------------
+
+
 In this coding challenge we kindly ask you to implement a rather contrived HTTP job processing
 service.
 
@@ -66,4 +72,36 @@ cat / tmp / file1
 rm / tmp / file1
 
 Please include any instructions you deem necessary to be able to test the execution of the
-solution.
+solution.CraftingSoftware coding challenge for Erlang Engineer!
+
+
+Intructions
+-----------
+
+Files that need to be modified:
+1. src/srvchl_ctl.erl
+   set bind_address to your IP address;
+   and then:
+   $ make
+2. In script srvchld:
+    set the envvar ERL_CALL to your real erl_call location
+
+
+
+1. Start the server:
+$ sh srvchld start
+
+2. Stop the server:
+$ sh srvchld stop
+
+3. Query the status of the server:
+$ sh srvchld status
+
+
+Endopints:
+
+curl  -XPOST http://boomerlang.eu:8080/tasks --data @tasks.json
+
+curl  -XPOST http://boomerlang.eu:8080/shellscript --data @tasks.json
+
+
