@@ -1,0 +1,48 @@
+#!/bin/sh
+
+##
+## Usage: $0 {start|restart|stop|debug|status}
+##
+export LC_CTYPE="en_US.UTF-8"
+
+ERL="/usr/local/bin/erl"
+HOSTNAME=`hostname -s`
+NODE="srvchl@$HOSTNAME"
+NODE_DBG="srvchl_dbg@$HOSTNAME"
+NODE_CTL="srvchl_ctl@$HOSTNAME"
+# LOG=/var/srvchl/conf/srvchl
+
+ERL_CALL="/usr/lib/erlang/lib/erl_interface-5.1/bin/erl_call"
+
+case $1 in
+  start)
+    # $ERL -boot start_sasl -config $LOG +K true +A 10 -sname $NODE -detached -s srvchl_ctl start $NODE
+    $ERL -boot start_sasl +K true +A 10 -sname $NODE -detached -s srvchl_ctl start $NODE
+    ;;
+  
+  restart)
+     $ERL_CALL -q -sname $NODE
+     sleep 2
+     $ERL -boot start_sasl -config $LOG +K true +A 4 -sname $NODE\
+                                 -detached -s srvchl_ctl start $NODE
+    ;;
+   
+  debug)
+     $ERL -boot start_sasl +K true +A 4 -s srvchl_ctl start $NODE_DBG -sname $NODE_DBG
+    ;;
+         
+  stop)
+    $ERL_CALL -q -sname $NODE
+    ;;
+        
+  status)
+     $ERL -noshell -sname srvchl_status -s srvchl_ctl status srvchl
+    ;;
+    
+  *)
+    echo "Usage: sudo $0 {start|restart|stop|debug|status}"
+    exit 1
+esac
+
+exit 0
+
